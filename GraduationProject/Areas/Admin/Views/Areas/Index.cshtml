@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section styles{
+    <link href="~/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/admin/sweetAlert/sweetalert2.min.css" rel="stylesheet" />
+}
+<h1>Area</h1>
+<button id="btn" class="btn btn-success">Create New Area </button>
+
+<table id="areatbl" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="areaModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="areacontent">
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/admin/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/alphaDatatable.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/admin/sweetAlert/sweetalert2.min.js"></script>
+    <script src="~/admin/crud/areas.js"></script>
+
+}
+
+
+

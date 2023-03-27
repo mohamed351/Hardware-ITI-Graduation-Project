@@ -1,0 +1,46 @@
+<div class="container container-height mt-5">
+
+<h1 class="text-center" style=color:#333333>Wishlist</h1>
+  <section >
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of this.WishlistService.ProductInfo">
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      <img class="image-card" [src]="'images/'+item.userProductImages[0].images" alt="">
+                    </div>
+                    <div class="media-body">
+                      <a [routerLink]="['/product/Details',item.id]">{{item.name}}</a>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5>{{item.price}} EGP</h5>
+                </td>
+
+                <td>
+                  <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon"
+                    (click)="this.WishlistService.DeleteFromWishList(item)">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

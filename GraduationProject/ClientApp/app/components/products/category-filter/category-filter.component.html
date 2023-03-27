@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<ng-template *ngIf="isOn==true;then categorySec; else filter"></ng-template>
+<ng-template #categorySec>
+    <div class="left_sidebar_area">
+        <aside class="left_widgets p_filter_widgets">
+            <div class="l_w_title">
+                <h3>Categories</h3>
+            </div>
+            <div class="widgets_inner">
+                <div class="list-group" *ngFor="let c of categories">
+                    <button type="button" class="list-group-item list-group-item-action" (click)="FilterCategory(c.id)">
+                        {{c.name}}
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</ng-template>
+
+<ng-template #filter>
+
+    <div class="left_sidebar_area">
+        <ng-container *ngFor="let f of filterAttribute">
+            <aside class="left_widgets p_filter_widgets">
+                <div class="l_w_title">
+                   <h3> {{f.TitleName}}</h3>
+                </div>
+                <div *ngIf="f.FilterType === 'From-To'">
+                <div class="range_item From-To">
+                    <div class="From-To-div">
+                        <!-- <label class="col-md-6">From</label> -->
+                        <input [(ngModel)]="f.From" (ngModelChange)="onFilter()" type="text"
+                            class="form-control" placeholder="From" aria-label="From"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <div class="From-To-div">
+                        <!-- <label class="col-md-12">To</label> -->
+                        <input [(ngModel)]="f.To" (ngModelChange)="onFilter()" type="text"
+                            class="form-control" placeholder="To" aria-label="To"
+                            aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                </div>
+
+
+                <div *ngIf="f.FilterType === 'Rating'">
+                    <div class="container star-rating">
+                        <ng-container *ngFor="let item of arr;let i = index">
+                            <button class="star-btn" (click)="rateVal(f, i+1)">
+                                <span [(ngModel)]="f['Rating'+(i+1)]" id="{{'star'+(i+1)}}" class="fa fa-star"></span>
+                            </button>
+                        </ng-container>
+                        <!-- 
+                        <button class="star-btn" (click)="rateVal(f, 1)"><span [(ngModel)]="f.Rating1" (ngModelChange)="onFilter()" id="star1" class="fa fa-star"></span></button>
+                        <button class="star-btn" (click)="rateVal(f, 2)"><span [(ngModel)]="f.Rating2" (ngModelChange)="onFilter()" id="star2" class="fa fa-star"></span></button>
+                        <button class="star-btn" (click)="rateVal(f, 3)"><span [(ngModel)]="f.Rating3" (ngModelChange)="onFilter()" id="star3" class="fa fa-star"></span></button>
+                        <button class="star-btn" (click)="rateVal(f, 4)"><span [(ngModel)]="f.Rating4" (ngModelChange)="onFilter()" id="star4" class="fa fa-star"></span></button>
+                        <button class="star-btn" (click)="rateVal(f, 5)"><span [(ngModel)]="f.Rating5" (ngModelChange)="onFilter()" id="star5" class="fa fa-star"></span></button> -->
+                        <!-- <input class="rating rating-loading" data-min="0" data-max="5" data-step="1"> -->
+                    </div>
+                </div>
+
+                <form>
+                <div *ngIf="f.FilterType === 'StaticChoice'">
+                    <div class="widgets_inner form-check">
+                        <ul class="list">
+                            <ng-container  *ngFor="let choice of f.ChoicesToRender">
+                                <li>
+                                    <label><input #condition [(ngModel)]="choice.selected" (ngModelChange)="onFilter()"
+                                            type="checkbox" name="radio1" value="">{{choice.name}}</label>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+                <div *ngIf="f.FilterType === 'DynamicChoice'">
+
+                    <div class="widgets_inner">
+                        <ul class="list">
+                            <ng-container *ngFor="let choice of f.ChoicesToRender">
+                                <li>
+                                    <label><input #brand [(ngModel)]="choice.selected" type="checkbox" name="radio2"
+                                            (ngModelChange)="onFilter()" value="">{{choice.name}}</label>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+        </ng-container>
+        <button (click)="onFilter()" type="button" class="btn btn-secondary">Power Search</button>
+
+    </div>
+
+</ng-template>

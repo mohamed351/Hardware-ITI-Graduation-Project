@@ -1,0 +1,26 @@
+.content{
+    margin-top: 0.5em;
+    display: block;
+    font-size: 15px;
+    font-weight: bolder;
+    font-family: Helvetica;
+    color: #444444
+}
+a{
+    color: #444444;
+}
+.title{
+    font-weight: bold;
+    color: #444444
+}
+
+#btnBack{
+    background-color: #222222;
+    color:white;
+    margin-top: 0.5em;
+}
+
+.btn-success{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

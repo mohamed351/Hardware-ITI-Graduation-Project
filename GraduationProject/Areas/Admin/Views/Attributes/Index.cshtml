@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section styles{
+    <link href="~/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/admin/sweetAlert/sweetalert2.min.css" rel="stylesheet" />
+}
+<h1>Index</h1>
+<button class="btn btn-success" id="btn"> Create Attribute </button>
+<table id="attributetbl" class="table">
+    <thead>
+        <tr>
+            <th>Attribute Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+</table>
+
+
+<div id="attributModel" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="attribute-form">
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/admin/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/alphaDatatable.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/admin/sweetAlert/sweetalert2.min.js"></script>
+    <script src="~/js/alphaDatatable.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            dataColumns = [{ data: "name" }, {
+                data: "id", render: function (data) {
+                    return `<button   class="btn btn-primary edit-button" attribute=${data}> Edit </button> |
+                                        <button class="btn btn-danger delete-button"  attribute=${data}> Delete </button>`
+                }
+            }];
+
+            tbl = tablePlugin("#attributetbl", "/admin/Attributes/GetAttribute", dataColumns);
+
+
+            $("#btn").click(function () {
+                $.ajax({
+                    url: "/admin/Attributes/Create",
+                    success: function (data) {
+                        $("#attribute-form").html(data);
+                        $("#attributModel").modal("show");
+                        var form = $("form");
+                        form.removeData('validator');
+                        form.removeData('unobtrusiveValidation');
+                        $.validator.unobtrusive.parse(form);
+                    }
+                });
+
+
+              
+            });
+
+            Complated = function (xhr) {
+
+                if (xhr.status == 200) {
+                    tbl.ajax.reload();
+                    $("#attributModel").modal("hide");
+                    Swal.fire({
+                        icon: 'success',
+                        title: xhr.responseText,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+                else if (xhr.status == 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: xhr.responseText,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+
+
+            }
+
+
+            $("#attributetbl").on("click", ".edit-button", function () {
+                var id = $(this).attr("attribute");
+                $.ajax({
+                    url: "/admin/Attributes/Edit/" + id,
+                    success(data) {
+                        $("#attribute-form").html(data);
+                        $("#attributModel").modal("show");
+                        var form = $("form");
+                        form.removeData('validator');
+                        form.removeData('unobtrusiveValidation');
+                        $.validator.unobtrusive.parse(form);
+                    }
+                });
+
+            });
+
+            $("#attributetbl").on("click", ".delete-button", function () {
+                var ID = $(this).attr("attribute");
+                $.ajax({
+                    url: "/admin/Attributes/Delete/",
+                    data: { id: ID },
+                    method: "POST",
+                    success(data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: data,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                    complete: Complated
+                });
+
+            });
+
+
+
+        });
+
+    </script>
+}

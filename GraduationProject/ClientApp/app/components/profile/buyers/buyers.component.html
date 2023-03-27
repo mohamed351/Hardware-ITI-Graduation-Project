@@ -1,0 +1,29 @@
+<!-- @format -->
+
+<div class="container mt-5 container-height">
+	<div class="row">
+		<div class="col-md-4">
+			<app-product-card [productInfo]="this.ProductInfo"></app-product-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card>
+              
+               
+      
+                <mat-card-content>
+                    <h2 class="margin-bottom-10 font-title font-b text-center font-animation">Users Who Tried to Contact You</h2>
+                    <label class="margin-bottom-10 text-center ">Please mark the user who made the purchase to complete it.</label>
+                  <table class="table ">
+                    <th>Users</th>
+                    <th></th>
+                      <tr *ngFor="let item of buyers">
+                            <td>{{item.userName}}</td>
+                            <td><button class="btn  btn-dark" (click)="Sold(item.userId,item.userName)">Mark as Buyer</button></td>
+                      </tr>
+                  </table>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+	</div>
+</div>

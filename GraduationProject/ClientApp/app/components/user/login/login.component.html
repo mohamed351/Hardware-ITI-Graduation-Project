@@ -1,0 +1,49 @@
+
+<section class="container mt-5 container-height">
+  <div class="row justify-content-center">
+   
+    <div class="col-md-4 mt-2">
+        <mat-card class="example-card">
+            <div class="flex-container">
+            <img src="/img/Circle-icons-unlocked.svg" class="imageCenter"/>
+        </div>
+            <h2 class="text-center header-font">Login</h2>
+        
+    <form #f="ngForm" (ngSubmit)="Save(f)">
+        <mat-form-field class="control-item-100">
+            <mat-label for="userName">Username</mat-label>
+            <input matInput type="text" id="userName" ngModel name="userName"
+                   placeholder="Enter your Username" required #userName="ngModel" />
+            <mat-error *ngIf="userName.touched && userName.invalid">
+                User Name is required
+            </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="control-item-100">
+            <mat-label for="password">Password</mat-label>
+            <input type="password" matInput ngModel id="password" name="password"
+                   placeholder="Enter your Password" required #password="ngModel" />
+            <mat-error *ngIf="password.touched && password.invalid">
+                Password is required
+            </mat-error>
+        </mat-form-field>
+            <br>
+            <mat-error *ngIf="notLogin">
+                Incorrect username or password,Please Try again.
+            </mat-error>
+        <br />
+            <div class="form-group">
+                <button mat-button class="button-full-width" mat-flat-button color="primary" [disabled]="f.invalid">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+            </div>
+        <div class="form-group">
+        <a class="link-pointer" routerLink="/ResetPassword"> Forgot Password?</a>
+        <a class="link-pointer" routerLink="/Registration">Register a new account </a>
+        
+        </div>
+
+   </form>
+</mat-card>
+</div>
+</div>
+</section>

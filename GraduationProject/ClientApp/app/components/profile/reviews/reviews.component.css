@@ -1,0 +1,13 @@
+.mt-2{
+   margin-top: 0.2rem;
+}
+.d-flex{
+   display: flex;
+   align-items: center;
+}
+.d-flex a{
+   display: inline-block;
+   font-size: 19px;
+   margin-left: 0.8rem;
+
+}

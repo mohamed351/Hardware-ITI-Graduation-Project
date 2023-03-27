@@ -1,0 +1,252 @@
+<ng-template *ngIf="product; then productShow;"></ng-template>
+<ng-template #productShow>
+    <!--================Single Product Area =================-->
+    <div class="product_image_area p-5">
+        <div class="container">
+            <div class="row s_product_inner">
+                <div class="col-lg-6">
+                    <div class="s_product_img">
+                        <div id="carouselExampleIndicators"
+                             class="carousel slide"
+                             data-ride="carousel">
+                            <div class="imgBox">
+                                <img class="d-block w-100" [src]="'/images/'+product.userProductImages[0].images" alt="product Image" />
+                            </div>
+                            <div id="similar-product" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="item active thumb">
+                                        <ng-container *ngFor="let p of product.userProductImages">
+                                            <a [href]="'/images/'+p.images"><img [src]="'/images/'+p.images" alt="product image" class="productImg"></a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="s_product_text">
+                        <h3>{{product.name}}</h3>
+                        <h4>{{product.price}} EGP</h4>
+                        <ul class="list">
+                            <li class="fontColor">
+                                <span>Seller</span> : {{product.user.firstName}} {{product.user.lastName}}
+                            </li>
+                            <li class="fontColor">
+                                <span>Date Added</span> : {{product.dateAdded | date:'medium'}}
+                            </li>
+                            <li class="fontColor">
+                                <span>Condition</span> : {{checkCondition(product.condition)}}
+                            </li>
+                        </ul>
+                        <p>{{product.description}}</p>
+                        <div class="card_area">
+                            <a class="main_btn" href="#"> Add to Wishlist</a>
+                            <button type="button" class="main_btn" *ngIf="userservice.IsLogin() && userservice.CurrentUserId() != product.userId" (click)="ShowChat(product.user,product.id)">
+                                Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================End Single Product Area =================-->
+    <!--================Product Description Area =================-->
+    <section class="product_description_area">
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       id="home-tab"
+                       data-toggle="tab"
+                       href="#home"
+                       role="tab"
+                       aria-controls="home"
+                       aria-selected="true">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       id="profile-tab"
+                       data-toggle="tab"
+                       href="#profile"
+                       role="tab"
+                       aria-controls="profile"
+                       aria-selected="false">Specification</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       id="chart-tab"
+                       data-toggle="tab"
+                       href="#chart"
+                       role="tab"
+                       aria-controls="chart"
+                       aria-selected="false"  (click)="RenderChart(this.product.productId)">Chart</a>
+                      
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       id="contact-tab"
+                       data-toggle="tab"
+                       href="#contact"
+                       role="tab"
+                       aria-controls="contact"
+                       aria-selected="false">Seller Information</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active"
+                     id="home"
+                     role="tabpanel"
+                     aria-labelledby="home-tab">
+                    <p>{{product.description}}</p>
+                    <div>
+                        <p><strong>Condition:</strong> {{checkCondition(product.condition)}}</p>
+                        <p><strong>Open For Negotiation:</strong> {{checkAcceptance(product.isNegotiable)}}</p>
+                        <p><strong>Willing To Exchange:</strong> {{checkAcceptance(product.isReplacable)}}</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade"
+                     id="profile"
+                     role="tabpanel"
+                     aria-labelledby="profile-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h5>Brand</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.product.brand.name}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Model</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.product.model.name}}</h5>
+                                    </td>
+                                </tr>
+                                <ng-container *ngFor="let p of product.product.productAttributes">
+                                    <tr>
+                                        <td>
+                                            <h5>{{p.attributeName}}</h5>
+                                        </td>
+                                        <td>
+                                            <h5>{{p.value}}</h5>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade"
+                     id="contact"
+                     role="tabpanel"
+                     aria-labelledby="contact-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h5>Seller Name</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.user.firstName}} {{product.user.lastName}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Email</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.user.email}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Address</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.user.address}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Area</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.user.area.areaName}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>City</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{product.user.area.city.cityName}}</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Rating</h5>
+                                    </td>
+                                    <td>
+                                        <h5><app-rating [ratingNumber]="rating"></app-rating></h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Sold Items</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{soldItem}}</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade"
+                id="chart"
+                role="tabpanel"
+                aria-labelledby="contact-tab">
+               <div class="chart-responsive">
+                <div style="display: block;">
+                    <ng-container *ngIf="this.productChart != null">
+                        <ng-container *ngIf="this.productChart.dateTime.length >0 && this.productChart.prices.length>0">
+                            <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType"
+                            [colors]="[{ backgroundColor: [
+                                '#00e6e6'
+                                
+                              ]}]">
+                    </canvas>
+                    <table class="table">
+                        <tr>
+                            <th>Average</th> <td>{{this.productChart.avrage}} EGP</td>
+                          
+                        </tr>
+                    </table>
+                </ng-container>
+                </ng-container>
+                </div>
+               </div>
+           </div>
+
+                
+            </div>
+        </div>
+    </section>
+    <!--================End Product Description Area =================-->
+</ng-template>
+

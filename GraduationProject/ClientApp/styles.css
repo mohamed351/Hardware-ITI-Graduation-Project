@@ -1,0 +1,156 @@
+/* You can add global styles to this file, and also import other style files
+
+html, body { 
+    height: auto;
+     min-height: 100vh;
+     background: #fff;  fallback for old browsers 
+     background: -webkit-linear-gradient(to right, #fff, #ccc, #ddd); 
+     background: linear-gradient(to right, #fff, #ccc, #ddd) 
+ }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.NgxEditor{
+ height: 250px;
+}
+main{
+    position: relative;
+    
+ 
+} */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+html, body {
+    background: linear-gradient(to left, #cccccc,white)
+}
+.margin-left-sm{
+    margin-left: 15px;
+}
+.margin-left-md{
+    margin-left: 20px;
+}
+.margin-left-lg{
+    margin-left: 25px;
+}
+
+.margin-right-sm{
+    margin-right: 15px;
+}
+.margin-right-md{
+    margin-right: 20px;
+}
+.margin-right-lg{
+    margin-right: 25px;
+}
+
+.margin-top-sm{
+    margin-top: 15px;
+}
+.margin-top-md{
+    margin-top: 20px;
+}
+.margin-top-lg{
+    margin-top: 25px;
+}
+
+.margin-bottom-sm{
+    margin-bottom: 15px;
+}
+.margin-bottom-md{
+    margin-bottom: 20px;
+}
+.margin-bottom-lg{
+    margin-bottom: 25px;
+}
+
+.padding-left-sm{
+    padding-left: 15px;
+}
+.padding-left-md{
+    padding-left: 20px;
+}
+.padding-left-lg{
+    padding-left: 25px;
+}
+
+.padding-right-sm{
+    padding-right: 15px;
+}
+.padding-right-md{
+    padding-right: 20px;
+}
+.padding-right-lg{
+    padding-right: 25px;
+}
+
+.padding-top-sm{
+    padding-top: 15px;
+}
+.padding-top-md{
+    padding-top: 20px;
+}
+.padding-top-lg{
+    padding-top: 25px;
+}
+
+.padding-bottom-sm{
+    padding-bottom: 15px;
+}
+.padding-bottom-md{
+    padding-bottom: 20px;
+}
+.padding-bottom-lg{
+    padding-bottom: 25px;
+}
+
+.header_area{
+    min-height: 100px;
+}
+.font-title{
+    font-family:"Raleway";
+    
+}
+.font-b{
+    font-size: 25px;
+}
+.font-m{
+    font-size: 20px;
+}
+.font-s{
+    font-size: 16px;
+}
+.font-animation{
+    -webkit-animation:colorchange 20s infinite;
+    animation:colorchange 20s infinite;
+}
+@keyframes colorchange {
+    0% {
+      
+      color: #00BFFF;
+    }
+
+    100% {
+      
+      color: #00BFFF;
+    }
+  }
+@-webkit-keyframes colorchange {
+    0% {
+      
+        color: 	#00BFFF;
+      }
+  
+      100% {
+        
+        color: 	#00BFFF;
+      }
+  }
+  .container-height{
+      min-height: 85vh;
+      height: auto;
+  }
+  .link-color{
+      background-color: #00BFFF !important;
+      color:#fff !important;
+  }
+  
+  .min-height-override{
+    min-height: 515px;
+  }

@@ -1,0 +1,16 @@
+.spinner-container{
+    display: flex;
+    justify-content: center;
+}
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.center{
+    justify-content: center;
+    display: flex;
+}
+
+#editSettingsButton{
+    background-color: #222222;
+    color: #ffffff;
+}

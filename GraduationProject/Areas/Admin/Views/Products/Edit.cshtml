@@ -1,0 +1,70 @@
+﻿@model ProductModelBrandViewModel
+
+<form asp-action="Edit" method="post" data-ajax-url="/Admin/Products/Edit" data-ajax="true" data-ajax-complete="Complated" data-ajax-method="post">
+    <div class="modal-header">
+        <h5 class="modal-title">Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Product Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="@Model.ProductId" />
+                <div class="form-group">
+                    <label asp-for="@Model.CategoryId" class="control-label">Category</label>
+                    @Html.DropDownListFor(model => model.CategoryId, Model.Categories,
+                   "Select Category", htmlAttributes: new
+                        {
+                            @class = "form-control",
+                            id = "CategoryId",
+                       @disabled = "disabled"
+                        })
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.BrandId" class="control-label">Brands</label>
+                    @Html.DropDownListFor(model => model.BrandId, Model.Brands,
+                   "Select Brand", new { @class = "form-control" })
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.ModelId" class="control-label">Models</label>
+                    @Html.DropDownListFor(model => model.ModelId, new SelectList(ViewBag.GetModels, "Id", "Name"),
+                   null, new { @class = "form-control" })
+                    <span asp-validation-for="ModelId" class="text-danger"></span>
+
+                </div>
+
+                <div id="productAttributes">
+                    @for (var i = 0; i < Model.ProductAttributes.Count; i++)
+                    {
+                        <div class="form-group">
+                            <input asp-for="@Model.ProductAttributes[i].Id" type="hidden" />
+                            <label asp-for="@Model.ProductAttributes[i].Name" class="control-label">@Model.ProductAttributes[i].Name</label>
+                            <input asp-for="@Model.ProductAttributes[i].Name" type="hidden" />
+                            <input asp-for="@Model.ProductValues[i]" class="form-control" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" id="submitformEdit" value="Edit" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+

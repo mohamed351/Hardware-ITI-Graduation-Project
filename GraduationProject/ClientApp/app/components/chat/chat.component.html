@@ -1,0 +1,42 @@
+<div class="panel panel-default fix-chat display-none" id="chat" >
+    <div class="panel-heading top-bar">
+        <div class="d-flex ">
+        <div class="col-md-8 col-md-8 padding-left-0">
+            <h6 class="panel-title margin-b-0"><span class="ti-comment-alt ml-2"></span> <span id="UserName"></span> {{this.ChatService.hubConnection.state}}</h6>
+            <input type="hidden" id="userId" #userID />
+        </div>
+        <div class="col-md-4 col-xs-3" style="text-align: right;">
+      
+
+           <span class="ti-close" (click)="closeChat()"></span>
+        
+        </div>
+    </div>
+    </div>
+    <div>
+       
+    </div>
+
+    <div  class="panel-body msg_container_base" id="scrollContainer">
+        <div  *ngFor="let item of ChatService.chatMessage" class="{{this.RenderSenderandReciverClass(item.sourceID != UserService.CurrentUserId())}}" >
+            <div class="col-md-10 col-xs-10">
+                <div class="messages msg_sent">
+                    <p>{{item.message}}</p>
+                    <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+    <div class="panel-footer" style="background-color: #e5e5e5;">
+        
+            <div class="d-flex justify-content-around align-items-center">
+            <input id="btn-input" required ngModel name="message" #message="ngModel" type="text" class="form-control input-sm chat_input" placeholder="Write your message here...">
+            <span class="input-group-btn"> 
+            <button class="btn btn-primary btn-sm btn-margin-0" id="btn-chat" (click)="SendData(userID, message)" [disabled]="message.invalid" >Send</button>
+            </span>
+        </div>
+      
+    </div>
+</div>

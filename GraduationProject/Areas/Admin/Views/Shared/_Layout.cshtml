@@ -1,0 +1,154 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ITI Graduation Project">
+    <meta name="author" content="Shahenda Elsayed , Kareem Sherif, Nardeen , Mohamed Amer">
+    <title>@ViewBag.Title</title>
+    <link href="~/admin/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/admin/css/sb-admin-2.css" rel="stylesheet" />
+    @*<link href="~/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />*@
+    @RenderSection("styles", false)
+</head>
+<body id="page-top">
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+                <div class="sidebar-brand-icon ">
+                    @*<i class="fas fa-laugh-wink"></i>*@
+                    <img src="~/img/LogoImage.png" width="100" />
+                </div>
+                <div class="sidebar-brand-text mx-3">Hardware Shed </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Components</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Cities" asp-area="Admin">Cities </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Areas" asp-area="Admin">Areas </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Brands" asp-area="Admin">Brands </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Attributes" asp-area="Admin">Attributes </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Categories" asp-area="Admin">Categories </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Models" asp-area="Admin">Models </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Products" asp-area="Admin">Products </a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Users" asp-area="Admin">Users</a>
+                            <a class="collapse-item" asp-action="Index" asp-controller="Suggestion" asp-area="Admin">Users Suggestions</a>
+
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+        <!-- Sidebar Toggler (Sidebar) -->
+     
+
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <partial name="_LoginPartial" />
+
+                    </ul>
+
+                </nav>
+
+                <div class="container-fluid">
+                    @RenderBody()
+
+                </div>
+
+
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 2020 - Hardware Shed</span>
+                    </div>
+                </div>
+            </footer>
+
+
+        </div>
+
+
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script src="~/admin/vendor/jquery/jquery.js"></script>
+    <script src="~/admin/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/admin/vendor/jquery-easing/jquery.easing.js"></script>
+    <script src="~/admin/js/sb-admin-2.js"></script>
+    @*<script src="~/admin/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="~/admin/vendor/datatables/dataTables.bootstrap4.js"></script>*@
+    @RenderSection("scripts", false)
+
+</body>
+</html>

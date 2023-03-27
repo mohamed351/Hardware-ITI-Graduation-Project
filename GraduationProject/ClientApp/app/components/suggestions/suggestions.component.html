@@ -1,0 +1,34 @@
+<section class="container container-height mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-md-offset-6">
+            <mat-card class="example-card">
+                <h2 class="text-center font-animation p-3">Suggestions</h2>
+                <form #f="ngForm" (ngSubmit)="Save(f)">
+                    <mat-form-field class="control-item-100">
+                        <mat-label for="suggestedModel">Model Name</mat-label>
+                        <input matInput type="text" id="suggestedModel" ngModel name="suggestedModel"
+                               placeholder="Write your Product Name" required #suggestedModel="ngModel" />
+                        <mat-error *ngIf="suggestedModel.touched && suggestedModel.invalid">
+                            Suggested Model is required
+                        </mat-error>
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field class="control-item-100">
+                        <mat-label for="description">Description</mat-label>
+                        <textarea matInput
+                              name="description"
+                              ngModel
+                              #description ="ngModel"
+                              placeholder="Write your Description..">
+									</textarea>
+                    </mat-form-field>
+                    <div class="form-group pt-3">
+                        <button mat-button class="button-full-width" mat-flat-button color="primary" [disabled]="f.invalid">
+                             Submit
+                        </button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</section>

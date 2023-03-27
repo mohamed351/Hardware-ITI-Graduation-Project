@@ -1,0 +1,14 @@
+.container-middle{
+    width: 900px;
+}
+.d-flex{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.full-width{
+    width: 90%;
+}
+.mr-2{
+    margin-right: 16px;
+}

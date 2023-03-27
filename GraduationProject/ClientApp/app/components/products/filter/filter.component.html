@@ -1,0 +1,62 @@
+<div class="left_sidebar_area">
+    <!-- {{test_title}} -->
+    <ng-container *ngFor="let f of filterAttribute">
+        <!-- <h3>{{f.TitleName}}</h3> -->
+        <!-- <h3>{{f}}</h3> -->
+        <aside class="left_widgets p_filter_widgets">
+            <div class="l_w_title">
+                {{f.TitleName}}
+            </div>
+            <div *ngIf="f.FilterType === 'From-To'">
+                <div class="col-md-12">
+                    <label class="col-md-12">From</label>
+                    <input [(ngModel)]="f.from" type="text" class="col-md-12 form-control" placeholder="From" aria-label="From"
+                        aria-describedby="basic-addon1">
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-12">To</label>
+                    <input [(ngModel)]="f.to" type="text" class="col-md-12 form-control" placeholder="To" aria-label="To"
+                        aria-describedby="basic-addon1">
+                </div>
+
+            </div>
+
+
+            <div *ngIf="f.FilterType === 'Rating'">
+                <div class="container">
+                    <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                  </div>
+            </div>
+
+
+            <div *ngIf="f.FilterType === 'SataticChoice'">
+                <div class="widgets_inner">
+                    <ul class="list">
+                        <ng-container *ngFor="let choice of f.Choices">
+                            <li>
+                                <label><input #condition [(ngModel)]="choice.value" type="checkbox" value="">{{choice}}</label>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div *ngIf="f.FilterType === 'DynamicChoice'">
+                
+                <div class="widgets_inner">
+                    <ul class="list">
+                        <ng-container *ngFor="let choice of f.Choices">
+                            <li>
+                                <label><input #brand [(ngModel)]="choice.value" type="checkbox" value="">{{choice}}</label>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+    </ng-container>
+    <button (click)="onFilter()" type="button" class="btn btn-secondary">Power Search</button>
+
+</div>

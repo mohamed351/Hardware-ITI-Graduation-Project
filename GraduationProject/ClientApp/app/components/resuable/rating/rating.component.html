@@ -1,0 +1,17 @@
+<!-- @format -->
+
+<ng-template *ngIf="IsMod; then trueElement; else falseElement"> </ng-template>
+<ng-template #trueElement>
+	<i
+		*ngFor="let item of this.Genedate(); let i = index"
+		[class]="item"
+		[ngStyle]="{ fontSize: size + 'px' }"
+		(click)="ChangeItem(i)"
+		#element
+	></i>
+	<span [ngStyle]="{ fontSize: size + 'px' }"> {{ this.ratingNumber | number: "1.0-0" }}</span>
+</ng-template>
+<ng-template #falseElement>
+	<i *ngFor="let item of this.Genedate()" [class]="item" 	[ngStyle]="{ fontSize: size + 'px' }"></i>
+	<span [ngStyle]="{ fontSize: size + 'px' }"> {{ this.ratingNumber | number: "1.0-0" }}</span>
+</ng-template>

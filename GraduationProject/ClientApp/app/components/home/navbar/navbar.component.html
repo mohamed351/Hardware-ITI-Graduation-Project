@@ -1,0 +1,99 @@
+<!--================Header Menu Area =================-->
+<header class="header_area">
+    <div class="main_menu row navstyle ml-0">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light w-100 margin-bottom-md ">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand logo_h" [routerLink]="['']">
+                    <img class="logo" src="/client/img/logo.png" alt="logo"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
+                    <div class="row w-100 mr-0">
+                        <div class="col-lg-7 pr-0">
+                            <ul class="nav navbar-nav margin-20">
+                                <ng-template *ngIf="this.userService.IsLogin(); then loginleft;"></ng-template>
+                            </ul>
+						</div>
+						
+						<div class="col-lg-5 pr-0">
+							<ul class="nav navbar-nav navbar-right right_nav pull-right">
+								<ng-template *ngIf="this.userService.IsLogin(); then login; else notlogin"></ng-template>
+							</ul>
+						  </div>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<ng-template #loginleft>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['']">Home</a>
+    </li>
+
+    <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            PRODUCTS
+
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/AddProduct">Add Product</a>
+            <a class="dropdown-item" routerLink="/product/ListProduct">Browse Products</a>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/wishlist']">Wishlist</a>
+    </li>
+</ng-template>
+
+<ng-template #login>
+	<li class="nav-item dropdown padding-right-sm">
+       
+        <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+            {{ this.userService.CurrentUserName() }} 
+        
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/profile">Profile</a>
+            <a class="dropdown-item" routerLink="profile/Edit/Account">Account Settings</a>
+            <!-- <a class="dropdown-item" routerLink="/UserReviews">Reviews</a> -->
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item logout" (click)="LogOut()"> Logout</a>
+          </div>
+    </li>
+    <li class="nav-item dropdown padding-right-sm" *ngIf="this.chatService.newMessage.length != 0">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarchat" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Messages <span class="badge badge-pill badge-primary notify-number">{{this.chatService.newMessage.length}}</span></a>
+        <div class="dropdown-menu" aria-labelledby="navbarchat">
+            <span class="dropdown-item logout" *ngFor="let item of this.chatService.newMessage" (click)="ShowDailog(item.userId,item.name)">{{item.name}}</span> 
+          </div>
+
+          <div class="dropdown-menu" aria-labelledby="navbarchat" *ngIf="this.chatService.newMessage.length ==0">
+            <span class="dropdown-item logout" >There is no Messages Yet </span> 
+          </div>
+    </li>
+
+    <li class="nav-item dropdown padding-right-sm" *ngIf="this.chatService.newMessage.length == 0">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarchat" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Messages <span class="badge badge-pill badge-primary notify-number">0</span></a>
+    </li>
+
+</ng-template>
+
+<ng-template #notlogin>
+	<li class="nav-item padding-right-sm">
+        <a class="nav-link" href="/#/Registration">Registration</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" routerLink="/Login"> Login</a>
+	</li>
+</ng-template>
+

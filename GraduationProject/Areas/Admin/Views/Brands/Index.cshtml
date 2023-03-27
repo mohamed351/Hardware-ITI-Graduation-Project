@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Brand>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section styles{
+    <link href="~/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/admin/sweetAlert/sweetalert2.min.css" rel="stylesheet" />
+}
+<h1>Brand</h1>
+<button id="btn" class="btn btn-success" onclick="editModel('@Url.Action("Create", "Brands")')"> Create New Brand </button>
+
+<table id="brandtbl" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="brandModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="brandcontent">
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/admin/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/alphaDatatable.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/admin/sweetAlert/sweetalert2.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            dataColumns = [{ data: "name" }, {
+                data: "id", render: function (data) {
+
+                    return `<button class="btn btn-primary" type="submit" onclick="editModel('/admin/Brands/Edit/${data}')">Edit</button> |
+                                  <button class="btn btn-danger" type="submit" onclick="deleteModel('${data}')">Delete</button>`;
+                }
+            }];
+
+
+            tbl = tablePlugin("#brandtbl", "/Admin/Brands/GetBrands", dataColumns);
+
+        });
+
+        function editModel(url) {
+            $('#brandcontent').load(url);
+            $('#brandModel').modal('show');
+        }
+
+        function deleteModel(Id) {
+            $.ajax({
+                url: "/Admin/Brands/Delete/" + Id,
+                method: "DELETE",
+                success(data) {
+                    tbl.ajax.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: data,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+            });
+        }
+
+        Complated = function (xhr) {
+
+            if (xhr.status == 200) {
+                tbl.ajax.reload();
+                $('#brandModel').modal('hide');
+                Swal.fire({
+                    icon: 'success',
+                    title: xhr.responseText,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+            }
+            else if (xhr.status == 400) {
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.responseText,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+            }
+
+        }
+
+
+
+    </script>
+
+}
+

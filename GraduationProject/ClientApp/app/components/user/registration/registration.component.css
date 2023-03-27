@@ -1,0 +1,47 @@
+.control-item-100{
+    width: 95.5%;
+}
+*{
+    box-sizing: border-box;
+}
+.control-item-50{
+    width: 46.5%;
+    margin-right: 1rem;
+}
+.image-container{
+ height: 100%;
+ background-image: url("/client/img/logo.png");
+ background-size: contain;
+ background-repeat: no-repeat;
+ 
+ padding: 15px 0px;
+}
+.row-cotnainer{
+    height: 60vh;
+    margin-top: 2rem;
+}
+.clear-flex{
+    clear: both;
+}
+.mat-card-registration{
+    width: 100%;
+    padding-right:0px;
+    height: 100%;
+    padding:15px;
+
+}
+.delete-padding{
+    padding-right: 0px;
+}
+.mt-9{
+ margin-top: 30px;
+}
+
+@media screen and  (max-width: 60rem){
+    .control-item-50{
+        width: 100%;
+        
+    }
+
+}
+

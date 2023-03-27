@@ -1,0 +1,37 @@
+﻿@model GraduationProject.Models.Area
+
+<div class="modal-body">
+    <form data-ajax-url="/Admin/Areas/Create" method="post" id="createForms" data-ajax="true" data-ajax-complete="Complated" data-ajax-method="post">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Areas </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="AreaName" class="control-label">Area Name</label>
+                    <input asp-for="AreaName" placeholder="Area Name" class="form-control" />
+                    <span asp-validation-for="AreaName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City" class="control-label">City</label>
+                    @Html.DropDownList("CityID",null,new  { @class="form-control"})
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <input type="submit" id="submitform" value="Create" class="btn btn-primary" />
+
+        </div>
+    </form>
+
+
+</div>

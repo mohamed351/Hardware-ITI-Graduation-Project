@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@section styles{
+    <meta name="google-signin-client_id" content="526149475211-3o2a6lhj8cdai3qa0i9o0rdr4hm0k648.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+    <link href="~/lib/JQVMap/jqvmap.min.css" rel="stylesheet" />
+}
+<h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Vistors</h6>
+    </div>
+
+    <div class="card-body">
+        <p id="google-button" class="g-signin2" data-onsuccess="queryReports"></p>
+        <div id="vmap" class="spinner center-load" style="width:100%;height:40vh"></div>
+    </div>
+ </div>
+
+    @section scripts{
+
+        <script src="~/lib/JQVMap/jquery.vmap.min.js"></script>
+        <script src="~/lib/JQVMap/jquery.vmap.world.js"></script>
+
+        <script>
+            var VIEWID = "221598376";
+            function queryReports() {
+
+                gapi.client.request({
+                    path: '/v4/reports:batchGet',
+                    root: 'https://analyticsreporting.googleapis.com/',
+                    method: 'POST',
+                    body: {
+                        "reportRequests":
+                            [
+                                {
+                                    "viewId": VIEWID,
+                                    dateRanges: [
+                                        {
+                                            startDate: '360daysAgo',
+                                            endDate: 'today'
+                                        }
+                                    ],
+                                    "metrics":
+                                        [
+                                            { "expression": "ga:sessions" }
+                                        ],
+                                    "dimensions":
+                                        [
+                                            { "name": "ga:countryIsoCode" }
+                                        ]
+                                }
+                            ]
+                    }
+                }).then(WorldMapResults);
+            }
+            function WorldMapResults(response) {
+                console.log(response);
+
+                var countryList = [];
+                var sessionList = [];
+                for (let i = 0; i < response.result.reports[0].data.rows[0].dimensions.length; i++) {
+                    countryList[i] = response.result.reports[0].data.rows[0].dimensions[i];
+                    sessionList[i] = response.result.reports[0].data.rows[0].metrics[i].values[0];
+                }
+                const codes = {};
+                for (let j = 0; j < countryList.length; j++) {
+                    codes[`${countryList[j].toLowerCase()}`] = sessionList[j];
+                }
+                $('#vmap').innerHTML = "";
+                $('#vmap').removeClass("spinner");
+                $('#vmap').css("height", "700px");
+                $('#vmap').vectorMap({
+                    map: 'world_en',
+                    backgroundColor: 'transparent',
+                    borderColor: '#818181',
+                    borderOpacity: 0.25,
+                    borderWidth: 1,
+                    values: codes,
+                    enableZoom: true,
+                    hoverColor: false,
+                    hoverOpacity: 0.7,
+                    normalizeFunction: 'polynomial',
+                    scaleColors: ['#cccccc', '#1a1a1a'],
+                    selectedColor: '#4d0028',
+                    selectedRegions: null,
+                    showTooltip: true,
+                    onLabelShow: function (event, label, code) {
+                        var vals = countryList.find(function (array) {
+                            if (code === array.toLowerCase()) {
+                                return array;
+                            } else {
+                                return 0;
+                            }
+                        });
+                        const index = $.inArray(vals, countryList);
+                        vals = sessionList[index];
+                        if (label[0].innerHTML === "Israel") {
+                            label[0].innerHTML = `Palestine : ${typeof vals === "undefined" ? "0" : vals}`;
+                        } else {
+                            label[0].innerHTML = label[0].innerHTML + " : " + (typeof vals === "undefined" ? "0" : vals);
+                        }
+                    }
+                });
+                $("#google-button").css("display", "none");
+            }
+        </script>
+        <script src="https://apis.google.com/js/client:platform.js"></script>
+
+
+    }

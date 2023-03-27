@@ -1,0 +1,134 @@
+<!-- @format -->
+<div class="container mt-product container-height p-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8 ">
+			<div class="justify-content-center">
+				<p>
+					<strong>
+						Can't find your product? Give us a suggestion and we will take
+						a look as soon as possible!
+					</strong>
+				</p>
+				<button class="main_btn" [routerLink]="['/product/suggestion']"><i class="ti-comments"></i>
+					Suggestion</button>
+			</div>
+			<br />
+			<mat-card>
+				<mat-card-title class="align-center">Add Product</mat-card-title>
+				<div class="form-group">
+					<form [formGroup]="form" (ngSubmit)="OnFormSubmit()">
+						<mat-vertical-stepper #stepper>
+							<mat-step>
+								<ng-template matStepLabel>Choose Product</ng-template>
+								<mat-form-field class="margin-form">
+									<input type="text" placeholder="ProductName" matInput (keyup)="OnTextWrite()"
+										formControlName="name" [matAutocomplete]="auto" />
+									<mat-autocomplete #auto="matAutocomplete" (optionSelected)="OnItemSelected($event)">
+										<mat-option *ngFor="let option of options" [value]="option.name">
+											{{ option.name }}
+										</mat-option>
+									</mat-autocomplete>
+								</mat-form-field>
+
+								<mat-form-field class="margin-form">
+									<mat-label>Products </mat-label>
+									<select matNativeControl formControlName="productId" required
+										(change)="OnSelectChange($event)">
+										<option [value]="0">...</option>
+										<option *ngFor="let item of filterdProduct" [value]="item.productId">
+											{{ item.name }}</option>
+									</select>
+								</mat-form-field>
+								<div class="form-group" *ngIf="selctedElement != null">
+									<dl>
+										<dt>Brand Name</dt>
+										<dd>{{ this.selctedElement.brandName }}</dd>
+										<dt>Model Name</dt>
+										<dd>{{ this.selctedElement.modelName }}</dd>
+										<dt>specifications</dt>
+										<dd>
+											<dl>
+												<ol>
+													<li *ngFor="let item of this.selctedElement.attributes">
+														{{ item.attributeName }}:{{ item.value }}
+													</li>
+												</ol>
+											</dl>
+										</dd>
+									</dl>
+								</div>
+							</mat-step>
+							<mat-step>
+								<ng-template matStepLabel>Add Photos</ng-template>
+								<div class="form-group">
+									<input id="image-button" type="file" (change)="OnAddPicture($event)" />
+								</div>
+
+								<div class="mt-image row">
+									<div class="col-md-12">
+										<ul class="list-group">
+											<li class="list-group-item overflow-el" *ngFor="let item of images.value">
+												<img [src]="item.value" width="50" />
+												| {{ item.name }}
+												<span class="badge badge-danger" (click)="DeleteImage(item)">X</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</mat-step>
+							<mat-step>
+								<ng-template matStepLabel>Write Condition and Price </ng-template>
+								<div class="form-group">
+									<mat-form-field class="margin-form">
+										<mat-label>Price</mat-label>
+										<input type="number" matInput formControlName="price" placeholder="Price" />
+									</mat-form-field>
+								</div>
+								<div class="form-group">
+									<mat-form-field class="margin-form">
+										<mat-label>Condition</mat-label>
+										<select matNativeControl formControlName="condition" required>
+											<option value="0" [selected]="true">New</option>
+											<option value="1">Used without box </option>
+											<option value="2">Used with box</option>
+										</select>
+									</mat-form-field>
+								</div>
+								<div class="form-group">
+
+									<mat-checkbox formControlName="isNegotiable">Negotiable </mat-checkbox>
+									<br />
+									<mat-checkbox formControlName="isReplacable">Replacable </mat-checkbox>
+								</div>
+							</mat-step>
+							<mat-step>
+								<ng-template matStepLabel>Write Description </ng-template>
+								<mat-form-field class="margin-form">
+									<mat-label>Description</mat-label>
+									<textarea matInput #message formControlName="description"
+										placeholder="Description..">
+									</textarea>
+								</mat-form-field>
+							</mat-step>
+						</mat-vertical-stepper>
+
+						<div class="d-flex-end">
+							<button mat-flat-button color="primary" [disabled]="this.form.invalid">Submit</button>
+						</div>
+					</form>
+				</div>
+			</mat-card>
+		</div>
+	</div>
+</div>
+
+<div id="tansformation" class="abs-form">
+	<div class="d-flex">
+		<button class="btn btn-danger" (click)="DeleteCropper()">Cancel</button>
+		<button class="btn btn-success" (click)="AddImage()">Add</button>
+	</div>
+
+	<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+		format="png" [resizeToWidth]="500" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+		(cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+</div>

@@ -1,0 +1,70 @@
+﻿@model GraduationProject.Models.Category
+
+
+    <div class="modal-body">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Categories-Edit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="row mt-2">
+            <input id="CategoryID" type="hidden" asp-for="@Model.Id" />
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="@Model.Name" class="control-label">Category Name</label>
+                    <input id="CategoryName" asp-for="@Model.Name" placeholder="Category Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-primary " id="btnEditPlus">+</button>
+                <button class="btn btn-danger " id="btnEditRemove">-</button>
+            </div>
+            @foreach (var item in Model.CategoryAttributes)
+            {
+
+
+
+                <div class="col-md-12" id="container-attribute">
+                    <div class="row attribute-row mt-2">
+                        <div class="col-12">
+
+                            <select class="form-control attribute">
+                                @foreach (var item2 in (ViewBag.GetAttributes as List<Attributes>))
+                                {
+                                    if (item.CategoryAttributeId == item2.Id)
+                                    {
+                                        <option value="@item2.Id" selected="selected">@item2.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item2.Id">@item2.Name</option>
+                                    }
+                                }
+
+                            </select>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div>
+
+
+        </div>
+
+
+    </div>
+
+<div class="modal-footer">
+    <input type="submit" id="submitformEdit" value="Edit" class="btn btn-primary" />
+
+</div>

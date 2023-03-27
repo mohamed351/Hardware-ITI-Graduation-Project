@@ -1,0 +1,45 @@
+<mat-card>
+  <ng-template *ngIf="userInfo != null then loaded else  didNotLoaded "></ng-template>
+</mat-card>
+
+<ng-template #loaded>
+  <h2 class="margin-bottom-10 font-title font-b text-center font-animation">User Information</h2>
+
+  <mat-card-header class="center">
+    <div style="text-align: center;">
+      <ngx-avatar [name]="userInfo.name" [size]="60"></ngx-avatar>
+    </div>
+  </mat-card-header>
+
+
+
+  <mat-card-content>
+    <dl>
+      <dt>Name</dt>
+      <dd>{{userInfo.name}}</dd>
+
+      <dt>City</dt>
+      <dd>{{userInfo.city}}</dd>
+
+      <dt>Area</dt>
+      <dd>{{userInfo.area}}</dd>
+
+      <dt>Address</dt>
+      <dd>{{userInfo.address}}</dd>
+
+      <dt>Rating</dt>
+      <dd>
+        <app-rating [ratingNumber]="userInfo.rating"></app-rating>
+      </dd>
+    </dl>
+  </mat-card-content>
+
+  <a class="btn" id="editSettingsButton"
+    *ngIf="userservice.IsLogin() && (userservice.CurrentUserId() == userID || userID == null)"
+    [routerLink]="['/profile/Edit/Account']">Edit Account Settings</a>
+</ng-template>
+<ng-template #didNotLoaded>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

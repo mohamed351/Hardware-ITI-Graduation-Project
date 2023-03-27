@@ -1,0 +1,14 @@
+﻿@model ProductModelBrandViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@for (var i = 0; i < Model.ProductAttributes.Count; i++)
+{
+    <div class="form-group">
+        <input asp-for="ProductAttributes[i].Id" type="hidden" />
+        <label asp-for="ProductAttributes[i].Name" class="control-label">@Model.ProductAttributes[i].Name</label>
+        <input asp-for="ProductAttributes[i].Name" type="hidden" />
+        <input asp-for="ProductValues[i]" class="form-control" placeholder="Attribute Value" />
+    </div>
+}
+
+

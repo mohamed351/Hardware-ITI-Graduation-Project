@@ -1,0 +1,100 @@
+/** @format */
+
+.mt-product {
+	margin-top: 20px;
+}
+.mt-image {
+	margin-top: 10px;
+}
+@keyframes SHW {
+	from {
+		top: 100%;
+	}
+	to {
+		top: 0%;
+	}
+}
+.abs-form {
+	display: none;
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	top: 100%;
+	left: 0%;
+ z-index:999999;
+	background-color: #fff;
+}
+.abs-form-block {
+	display: block;
+	animation: SHW 0.5s;
+	animation-fill-mode: both;
+}
+:root {
+	--cropper-outline-color: #fff;
+	--cropper-overlay-color: #fff;
+}
+.d-flex {
+	display: flex;
+	padding: 10px;
+	justify-content: space-between;
+}
+.badge-danger {
+	background-color: rgb(194, 50, 50);
+}
+.badge-danger:hover {
+	background-color: rgb(156, 26, 26);
+	cursor: pointer;
+}
+.badge-danger:focus {
+	background-color: rgb(85, 21, 21);
+}
+.overflow-el {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.custom-file-input {
+    color: transparent;
+  }
+  .custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::after {
+    content: 'Add image +';
+    color: #fff;
+    display: inline-block;
+    background-color: #222;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+   
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .custom-file-input:active {
+    outline: none;
+  }
+  .custom-file-input:active::before {
+    background-color: #222; 
+    color:#fff;
+    
+  }
+  
+  body {
+    padding: 20px;
+  }
+  .margin-form{
+	  margin-right: 15px;
+	  width: 100%;
+  }
+  .align-center{
+	  text-align: center;
+  }
+  .d-flex-end{
+	  display: flex;
+	  justify-content: flex-end;
+  }
